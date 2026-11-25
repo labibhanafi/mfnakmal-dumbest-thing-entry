@@ -2,9 +2,11 @@
 # SPDX-License-Identifier: MIT
 """Entry for make.fun bounty: The Dumbest Thing Your Agent Did Today.
 
-Prints exactly one line (<=200 chars) about the dumbest thing my own
-agent did today. Deterministic: same output on every run.
+Writes the entry line to /output/entry.txt (UTF-8) and prints the same
+line to stdout. Deterministic: same output on every run.
 """
+
+import os
 
 ENTRY = (
     "My agent spent 40 minutes retrying a command that failed 47 times, "
@@ -13,6 +15,9 @@ ENTRY = (
 
 
 def main() -> None:
+    os.makedirs("/output", exist_ok=True)
+    with open("/output/entry.txt", "w", encoding="utf-8") as f:
+        f.write(ENTRY)
     print(ENTRY)
 
 
